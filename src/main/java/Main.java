@@ -25,11 +25,14 @@ public class Main {
                 String imageHDUrl = nasaResponse.getHdurl();
                 String fileName = getImageName(imageURL);
                 String fileHDName = getImageName(imageHDUrl);
-                if (nasaResponse.getMedia_type().equals("image")) {
+                String mediaType = nasaResponse.getMediaType();
+                if (mediaType.equals("image")) {
                     downloadFile(client, imageURL, fileName);
-                    downloadFile(client, imageHDUrl, fileHDName);
+                    if (fileHDName != null) {
+                        downloadFile(client, imageHDUrl, fileHDName);
+                    }
                 } else {
-                    System.out.println("Тип контента не поддерживается");
+                    System.out.println("Тип контента " + mediaType + " не поддерживается. Попробуйте в другой раз.");
                 }
 
             } else {
@@ -56,11 +59,6 @@ public class Main {
 
         }
     }
-
-    private static void downloadFileViaApach(URL url, String fileName) throws IOException {
-        FileUtils.copyURLToFile(url, new File(fileName));
-    }
-
 
     private static String getImageName(String imageUrl) {
         if (imageUrl != null) {
