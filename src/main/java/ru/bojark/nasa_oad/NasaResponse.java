@@ -1,3 +1,5 @@
+package ru.bojark.nasa_oad;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class NasaResponse {
